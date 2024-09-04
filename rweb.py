@@ -69,7 +69,7 @@ def limit_remote_addr():
     if allowed_ips:
         client_ip = request.remote_addr
         if client_ip not in allowed_ips:
-            abort(403)  # Verboten
+            abort(403)  # Not allowdd
 
 # Custom error page for 403 Forbidden
 def forbidden(e):
