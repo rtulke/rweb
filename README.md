@@ -38,8 +38,10 @@ rweb -G
 ```
 
 ```
-Config file 'config.yaml' generated successfully.
+The file '/home/myuser/rweb/.rweb/config.yaml' generated successfully.
 ```
+
+For global settings copy the directory to ~/.rweb/config.yaml
 
 Default values are now entered here.
 
@@ -64,10 +66,10 @@ You can now edit the config.yaml yourself and make further adjustments. An examp
 vim config.yaml
 ```
 
+For example:
+
 ```
 allowed_ips:
-- 127.0.0.1
-- 10.0.0.2
 - 192.168.1.10
 listen: 0.0.0.0
 port: 8080
@@ -82,19 +84,18 @@ For example, you can determine which IP addresses you want to allow access to th
 Alternatively, you can also specify the config.yaml configuration as a parameter.
 
 ```bash
-rweb -G -i 10.10.10.2 127.0.0.1 192.168.10.10 -L 10.0.0.1 -P 8080
+rweb -G -i 10.10.10.2 127.0.0.1 -L 10.0.0.1 -P 8080
 ```
 
 rweb will now read your parameters and write them directly to the config.yaml file.
 
 ```
-The file 'config.yaml' already exists. Do you want to overwrite it? (Y/n): Y
+The file '/home/myuser/rweb/.rweb/config.yaml' already exists. Do you want to overwrite it? (Y/n): Y
 Config file 'config.yaml' generated successfully.
 ```
 
 ```bash
 cat config.yaml
-
 ```
 
 As you can see, only the things that were handed over as parameters were adapted. The previously created configurations are not touched.
