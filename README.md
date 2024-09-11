@@ -4,6 +4,7 @@ Just a very simple Webserver for single HTML Sites
 This rweb (Roberts WebServer) is a simple Flask application that allows you to display an single HTML file configured via a YAML configuration file or command-line arguments. When developing some of my smaller projects I needed a quick way to configure a simple web server that can do nothing more than display a simple html file.
 The server port, allowed IP addresses, HTML file path, listening IP, and default HTML content can be configured through `config.yaml`. If a command-line argument is provided, it overrides the respective setting in the `config.yaml`. If neither a config file nor arguments are provided, the script falls back to default variables. A config file can be generated with the `--generate-config` (`-G`) option.
 
+
 ## Setup
 
 ```bash
@@ -19,6 +20,16 @@ sudo cp rweb /usr/local/bin
 ```
 
 ## Configure rweb
+
+### config.yaml
+
+The script is structured in such a way that it always searches for the configuration in the user directory under ~/.rweb/config.yaml first, thus ensuring that only this file is loaded if it exists there. If the file does not exist in the user directory under ~/.rweb./config.yaml, it checks whether there is a directory + the configuration file .rweb/config.yaml in the current directory, and if so, it is loaded accordingly. This has the advantage that you can now store a separate configuration for each directory. With the parameter -c the configuration can also be loaded from another directory, e.g. -c /etc/rweb/config.yaml or -c myserver1.yaml 
+
+If no config.yaml file is found, the web server falls back to FALLBACK variables in the script. Unless you use the parameters corresponding to -L LISTEN, -p path, -P port, -i allowed_ips, -D dir, -S static_dir.
+
+If you only need a few parameters, the program recognizes these and accesses the config.yaml accordingly if available (depending on availability/path) or accesses the FALLBACK variable again accordingly.
+
+This makes the small web server absolutely modular.
 
 To create a simple webserver configuration in YAML format you only need the option -G
 
