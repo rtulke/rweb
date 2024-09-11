@@ -7,16 +7,68 @@ The server port, allowed IP addresses, HTML file path, listening IP, and default
 
 ## Setup
 
-```bash
+
+### Setting up a development environment
+
+Not absolutely necessary because you can also download the repo as tar.gz.
+
+### Git installation
+
+```
 sudo apt update && apt upgrade
 sudo apt install -y git
-mkdir -p ~/dev
-cd ~/dev
+```
+
+If you want to check in your changes for the pdiff project via git, you should also enter your name and e-mail address for git.
+
+```
+git config --global user.name "Your Name"
+git config --global user.email "your@email-address.com"
+```
+
+## Setup pdiff
+
+### Installation of the required Python3 modules
+
+There are some modules that need to be installed additionally. The other modules used by rweb should already have been set up by the Python installation.
+
+```
+pip3 install flask yaml arparse
+```
+
+```
+mkdir -p ~/dev/
+cd ~/dev/
 git clone https://github.com/rtulke/rweb.git
-cd rweb
-cp rweb.py rweb
-chmod +x rweb
-sudo cp rweb /usr/local/bin
+```
+
+We have now downloaded rweb and it is located in the ~/dev directory below your user directory. If you want to execute rweb as a command, you should make the following adjustments. Otherwise you would always have to write `python3 rweb.py <param> <arg>.`
+
+
+```
+mkdir -p ~/bin/
+cd ~/dev/rweb
+cp rweb.py ~/bin/rweb
+chmod +x ~/bin/rweb
+```
+
+To make the path known as a user in your system, you can do this either by editing the file `~/.profile` or the file `~/.bashrc` and adding this to your existing path variable.
+
+Use your favorite editor and edit one of the two files.
+
+```
+vim ~/.bashrc
+```
+
+Add the following content in a new line at the end of the file.
+
+```
+export PATH="$PATH:~/bin"
+``` 
+So that the whole thing is also loaded in the system, you should now load the previously selected file `~/.bashrc` or `~/.profile` again. We do this with `source ~/.bashrc` or `source ~/.profile`
+
+```
+source ~/.bashrc
 ```
 
 ## Configure rweb
