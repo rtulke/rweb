@@ -133,25 +133,19 @@ Press CTRL+C to quit
 ## Command-Line Arguments
 
 ~~~
-usage: rweb2.py [-h] [-p PATH] [-P PORT] [-i IPS [IPS ...]] [-L LISTEN] [-c CONFIG] [-G] [-D DIRECTORY] [-S STATIC_DIR] [-l]
+usage: rweb [-h] [-p PATH] [-P PORT] [-i IPS [IPS ...]] [-L LISTEN] [-c CONFIG] [-G] [-D DIRECTORY] [-S STATIC_DIR] [-l]
 
 Flask App to display an HTML file
 
 options:
-  -h, --help            show this help message and exit
-  -p PATH, --path PATH  Path to the HTML file to display
-  -P PORT, --port PORT  Port to run the Flask server on
-  -i IPS [IPS ...], --ips IPS [IPS ...]
-                        List of allowed IP addresses
-  -L LISTEN, --listen LISTEN
-                        IP address to listen on (default: 0.0.0.0)
-  -c CONFIG, --config CONFIG
-                        Path to the config file
-  -G, --generate-config
-                        Generate a config.yaml file with the current settings
-  -D DIRECTORY, --directory DIRECTORY
-                        Default directory to serve files from
-  -S STATIC_DIR, --static-dir STATIC_DIR
-                        Directory to serve static files from (e.g., images)
-  -l, --list-config     List the current config.yaml file content and exit
+  -h, --help                              show this help message and exit
+  -p PATH, --path PATH                    Path to the HTML file to display
+  -P PORT, --port PORT                    Port to run the Flask server on
+  -i IPS [IPS ...], --ips IPS [IPS ...]   List of allowed IP addresses
+  -L LISTEN, --listen LISTEN              IP address to listen on (default: 0.0.0.0)
+  -c CONFIG, --config CONFIG              Path to the config file
+  -G, --generate-config                   Generate a config.yaml file with the current settings
+  -D DIRECTORY, --directory DIRECTORY     Default directory to serve files from
+  -S STATIC_DIR, --static-dir STATIC_DIR  Directory to serve static files from (e.g., images)
+  -l, --list-config                       List the current config.yaml file content and exit
 ~~~
