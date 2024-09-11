@@ -9,7 +9,7 @@ The server port, allowed IP addresses, HTML file path, listening IP, and default
 
 ```bash
 sudo apt update && apt upgrade
-sudo apt install -y  git
+sudo apt install -y git
 mkdir -p ~/dev
 cd ~/dev
 git clone https://github.com/rtulke/rweb.git
@@ -23,7 +23,7 @@ sudo cp rweb /usr/local/bin
 
 ### config.yaml
 
-The script is structured in such a way that it always searches for the configuration in the user directory under ~/.rweb/config.yaml first, thus ensuring that only this file is loaded if it exists there. If the file does not exist in the user directory under ~/.rweb./config.yaml, it checks whether there is a directory + the configuration file .rweb/config.yaml in the current directory, and if so, it is loaded accordingly. This has the advantage that you can now store a separate configuration for each directory. With the parameter -c the configuration can also be loaded from another directory, e.g. -c /etc/rweb/config.yaml or -c myserver1.yaml 
+The script is structured in such a way that it always searches for the configuration in the user directory under `~/.rweb/config.yaml` first, thus ensuring that only this file is loaded if it exists there. If the file does not exist in the user directory under `~/.rweb./config.yaml`, it checks whether there is a directory + the configuration file .rweb/config.yaml in the current directory, and if so, it is loaded accordingly. This has the advantage that you can now store a separate configuration for each directory. With the parameter -c the configuration can also be loaded from another directory, e.g. `-c /etc/rweb/config.yaml` or `-c myserver1.yaml` 
 
 If no config.yaml file is found, the web server falls back to FALLBACK variables in the script. Unless you use the parameters corresponding to -L LISTEN, -p path, -P port, -i allowed_ips, -D dir, -S static_dir.
 
@@ -41,7 +41,7 @@ rweb -G
 The file '/home/myuser/rweb/.rweb/config.yaml' generated successfully.
 ```
 
-For global settings copy the directory to ~/.rweb/config.yaml
+For global user settings copy the directory to ~/.rweb/config.yaml
 
 Default values are now entered here.
 
