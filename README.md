@@ -2,6 +2,7 @@
 Just a very simple Webserver for single HTML Sites
 
 This rweb (Roberts WebServer) is a simple Flask application that allows you to display an single HTML file configured via a YAML configuration file or command-line arguments. When developing some of my smaller projects I needed a quick way to configure a simple web server that can do nothing more than display a simple html file.
+
 The server port, allowed IP addresses, HTML file path, listening IP, and default HTML content can be configured through `config.yaml`. If a command-line argument is provided, it overrides the respective setting in the `config.yaml`. If neither a config file nor arguments are provided, the script falls back to default variables. A config file can be generated with the `--generate-config` (`-G`) option.
 
 
