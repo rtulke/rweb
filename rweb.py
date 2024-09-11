@@ -15,11 +15,12 @@ FALLBACK_LISTEN = '0.0.0.0'                                     # Default: Liste
 FALLBACK_DIRECTORY = '/'                                        # Default: Serve files from root directory
 FALLBACK_STATIC_DIR = 'static'                                  # Default: Serve static files from 'static' directory
 FALLBACK_MESSAGE = 'Hello World!'                               # Default message to display if no HTML file is provided
-FALLBACK_CONFIG = os.path.expanduser('~/.rweb/config.yaml')     # Default path for the config file
+USER_CONFIG_PATH = os.path.expanduser('~/.rweb/config.yaml')     # Default path in user's home directory
 
 # Function to parse command line arguments
 def parse_args():
-    parser = argparse.ArgumentParser(description='Flask App to display an HTML file')
+    formatter = lambda prog: argparse.HelpFormatter(prog, max_help_position=60)
+    parser = argparse.ArgumentParser(formatter_class=formatter, description='Flask App to display an HTML file')
     parser.add_argument('-p', '--path', type=str, help='Path to the HTML file to display')
     parser.add_argument('-P', '--port', type=int, help='Port to run the Flask server on')
     parser.add_argument('-i', '--ips', nargs='+', help='List of allowed IP addresses')
@@ -39,17 +40,27 @@ def load_config(config_file):
             return yaml.safe_load(file)
     return {}
 
-# Function to generate the config.yaml file (if it doesn't exist, or if the user wants to overwrite it)
-def generate_config_file(config_file, ips, path, port, listen, directory, static_dir):
-    config_dir = os.path.dirname(config_file)
+# Function to check if the config file exists in user directory or current working directory
+def get_config_path():
+    # Check user directory first
+    if os.path.exists(USER_CONFIG_PATH):
+        return USER_CONFIG_PATH
+    # Check current working directory for .rweb/config.yaml
+    current_dir_config_path = os.path.join(os.getcwd(), '.rweb/config.yaml')
+    if os.path.exists(current_dir_config_path):
+        return current_dir_config_path
+    return USER_CONFIG_PATH  # Fallback to user directory if none found
 
-    # Create the config directory if it doesn't exist
-    if not config_dir:
-        config_dir = os.path.expanduser('~/.rweb')
+# Function to generate the config.yaml file in the current working directory
+def generate_config_file(ips, path, port, listen, directory, static_dir):
+    current_dir_config_dir = os.path.join(os.getcwd(), '.rweb')
 
-    if not os.path.exists(config_dir):
-        os.makedirs(config_dir)
-  
+    # Create the .rweb directory if it doesn't exist
+    if not os.path.exists(current_dir_config_dir):
+        os.makedirs(current_dir_config_dir)
+
+    config_file = os.path.join(current_dir_config_dir, 'config.yaml')
+
     # Check if the config file already exists and ask the user if they want to overwrite it  
     if os.path.exists(config_file):
         overwrite = input(f"The file '{config_file}' already exists. Do you want to overwrite it? (Y/n): ")
@@ -109,8 +120,8 @@ def not_found(e):
 if __name__ == '__main__':
     args = parse_args()
 
-    # Config file by command line argument or fallback
-    config_file = args.config if args.config else FALLBACK_CONFIG
+    # Determine the correct config file path
+    config_file = args.config if args.config else get_config_path()
 
     # Load the configuration from the config file
     config = load_config(config_file)
@@ -129,7 +140,7 @@ if __name__ == '__main__':
     static_dir = args.static_dir if args.static_dir else config.get('static_directory', FALLBACK_STATIC_DIR)
     default_message = config.get('default_message', FALLBACK_MESSAGE)
 
-    # If the user wants to generate a config file, do it and exit ;)
+    # If the user wants to generate a config file, do it and exit
     if not args.generate_config:
         if os.path.exists(config_file):
             print(f"Loaded configuration from: {config_file}")
@@ -150,7 +161,7 @@ if __name__ == '__main__':
 
     # Start the Flask app
     if args.generate_config:
-        generate_config_file(config_file, allowed_ips, html_path, port, listen, default_directory, static_dir)
+        generate_config_file(allowed_ips, html_path, port, listen, default_directory, static_dir)
     else:
         app = Flask(__name__, static_folder=static_dir)
         app.before_request(limit_remote_addr)
