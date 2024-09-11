@@ -19,14 +19,14 @@ sudo apt update && apt upgrade
 sudo apt install -y git
 ```
 
-If you want to check in your changes for the pdiff project via git, you should also enter your name and e-mail address for git.
+If you want to check in your changes for the rweb project via git, you should also enter your name and e-mail address for git.
 
 ```
 git config --global user.name "Your Name"
 git config --global user.email "your@email-address.com"
 ```
 
-## Setup pdiff
+## Setup rweb
 
 ### Installation of the required Python3 modules
 
@@ -127,8 +127,8 @@ listen: 0.0.0.0
 port: 8080
 default_message: Hello World!
 default_directory: /
-html_path: /home/myuser/pdiff/index.html
-static_directory: /home/myuser/pdiff/static
+html_path: /home/myuser/rweb/index.html
+static_directory: /home/myuser/rweb/static
 ```
 
 For example, you can determine which IP addresses you want to allow access to the web server.
