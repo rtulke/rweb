@@ -34,7 +34,7 @@ git config --global user.email "your@email-address.com"
 There are some modules that need to be installed additionally. The other modules used by rweb should already have been set up by the Python installation.
 
 ```
-pip3 install flask yaml arparse
+pip3 install flask yaml
 ```
 
 ```
