@@ -15,7 +15,7 @@ FALLBACK_LISTEN = '0.0.0.0'                                     # Default: Liste
 FALLBACK_DIRECTORY = '/'                                        # Default: Serve files from root directory
 FALLBACK_STATIC_DIR = 'static'                                  # Default: Serve static files from 'static' directory
 FALLBACK_MESSAGE = 'Hello World!'                               # Default message to display if no HTML file is provided
-USER_CONFIG_PATH = os.path.expanduser('~/.rweb/config.yaml')     # Default path in user's home directory
+USER_CONFIG_PATH = os.path.expanduser('~/.rweb/config.yaml')    # Default path in user's home directory
 
 # Function to parse command line arguments
 def parse_args():
