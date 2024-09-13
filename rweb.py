@@ -7,15 +7,64 @@ import yaml
 import sys
 from flask import Flask, render_template_string, send_from_directory, abort, request
 
+
 # Fallback-Values for the Flask App
 FALLBACK_ALLOWED_IPS = ['127.0.0.1']                            # Default: Only allow localhost
 FALLBACK_HTML_PATH = 'index.html'                               # Default: Display index.html
-FALLBACK_PORT = 5000                                            # Default: Run on port 5000 (HTTP)
+FALLBACK_PORT = 8080                                            # Default: Run on port 5000 (HTTP)
 FALLBACK_LISTEN = '0.0.0.0'                                     # Default: Listen on all interfaces
 FALLBACK_DIRECTORY = '/'                                        # Default: Serve files from root directory
 FALLBACK_STATIC_DIR = 'static'                                  # Default: Serve static files from 'static' directory
 FALLBACK_MESSAGE = 'Hello World!'                               # Default message to display if no HTML file is provided
 USER_CONFIG_PATH = os.path.expanduser('~/.rweb/config.yaml')    # Default path in user's home directory
+
+VERSION = "1.1.10"
+
+# available colors
+colors = {
+    "green": "\033[32m",
+    "red": "\033[31m",
+    "blue": "\033[34m",
+    "yellow": "\033[33m",
+    "magenta": "\033[35m",
+    "cyan": "\033[36m",
+    "white": "\033[37m",
+    "light_grey": "\033[90m",
+    "dark_grey": "\033[30m",
+    "light_red": "\033[91m",
+    "light_green": "\033[92m",
+    "light_yellow": "\033[93m",
+    "light_blue": "\033[94m",
+    "light_magenta": "\033[95m",
+    "light_cyan": "\033[96m",
+    "black": "\033[30m",
+}
+
+reset = "\033[0m"  # reset to the default color
+default_color="{colors['light_blue']}"
+# Example print colored text
+#print(f"{colors['green']}green foo{reset}")
+#print(f"{colors['red']}red foo{reset}")
+#print(f"{colors['blue']}blue foo{reset}")
+
+
+    
+    
+# Function to print the banner
+def print_banner():
+    print(f"{colors['light_red']}")
+    print(r'''
+ ________   ________   ___   ________  ________ 
+|\   __  \ |\   ___ \ |\  \ |\  _____\|\  _____\
+\ \  \|\  \\ \  \_|\ \\ \  \\ \  \__/ \ \  \__/ 
+ \ \   ____\\ \  \ \\ \\ \  \\ \   __\ \ \   __\
+  \ \  \___| \ \  \_\\ \\ \  \\ \  \_|  \ \  \_|
+   \ \__\     \ \_______\\ \__\\ \__\    \ \__\ 
+    \|__|      \|_______| \|__| \|__|     \|__|                                                                          
+    ''')
+    print(f"{colors['blue']}             Robert Tulke [rt@debian.sh] pdiff {VERSION}{reset}")
+    print()
+
 
 # Function to parse command line arguments
 def parse_args():
@@ -30,6 +79,7 @@ def parse_args():
     parser.add_argument('-D', '--directory', type=str, help='Default directory to serve files from')
     parser.add_argument('-S', '--static-dir', type=str, help='Directory to serve static files from (e.g., images)')
     parser.add_argument('-l', '--list-config', action='store_true', help='List the current config.yaml file content and exit')
+    parser.add_argument('-v', '--version', action='store_true', help='Show version') 
     
     return parser.parse_args()
 
@@ -118,8 +168,15 @@ def not_found(e):
 
 # Main function to run the Flask app
 if __name__ == '__main__':
+    
+    # Parse the command line arguments
     args = parse_args()
-
+    
+    # Print the banner and exit
+    if args.version:
+        print_banner()
+        sys.exit(0)
+    
     # Determine the correct config file path
     config_file = args.config if args.config else get_config_path()
 
@@ -157,7 +214,7 @@ if __name__ == '__main__':
         # Check if the user is trying to bind to a port below 1024 without root privileges
         if port < 1024 and os.geteuid() != 0:
             print("Error: You must run this script as root to bind to ports below 1024.")
-            sys.exit(1)  # Beenden des Skripts
+            sys.exit(1)
 
     # Start the Flask app
     if args.generate_config:
