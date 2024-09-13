@@ -42,14 +42,7 @@ colors = {
 
 reset = "\033[0m"  # reset to the default color
 default_color="{colors['light_blue']}"
-# Example print colored text
-#print(f"{colors['green']}green foo{reset}")
-#print(f"{colors['red']}red foo{reset}")
-#print(f"{colors['blue']}blue foo{reset}")
-
-
-    
-    
+        
 # Function to print the banner
 def print_banner():
     print(f"{colors['light_red']}")
