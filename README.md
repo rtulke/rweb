@@ -162,6 +162,8 @@ default_message: Hello World!
 html_path: /home/robert/test.html
 listen: 10.0.0.1
 port: 8080
+logging: False
+logfile: 
 ```
 
 If the -G parameter is omitted, the parameters are interpreted as start input and the web server starts with these parameters.
@@ -171,10 +173,19 @@ If the -G parameter is omitted, the parameters are interpreted as start input an
 ```
 
 ```
+Logging not enabled or logfile not provided.
+No configuration file loaded. Using fallback values:
+Allowed IPs: ['10.10.10.2', '127.0.0.1', '192.168.10.10']
+HTML Path: index.html
+Port: 9999
+Listen: 10.10.10.4
+Default Directory: /
+Static Directory: static
+Default Message: Hello World!
  * Serving Flask app 'rweb'
  * Debug mode: on
 WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
- * Running on http://10.10.10.4:8080
+ * Running on http://10.10.10.4:9999
 Press CTRL+C to quit
  * Restarting with stat
  * Debugger is active!
