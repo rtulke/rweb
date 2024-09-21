@@ -1,5 +1,3 @@
-{:toc}
-
 # rweb
 Ein einfacher Webserver für einzelne HTML-Seiten
 
